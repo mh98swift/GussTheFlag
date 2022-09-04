@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var showScore = false
     @State private var scoreTitle = ""
     @State private var score = 0
+    @State private var numberOfQuestions = 0
     
     
     var body: some View {
@@ -50,16 +51,25 @@ struct ContentView: View {
     }
     
     func flagTapped(_ number: Int){
+        numberOfQuestions += 1
         if number == correctAnswer{
             scoreTitle = "Correct"
             score += 1
         }
         else{
-            scoreTitle = "Wrong"
+            scoreTitle = "Wrong, this is \(countries[number]) flag"
             if score > 0{
                 score -= 1
             }
         }
+        
+        if numberOfQuestions == 7{
+            scoreTitle = "Start A new game"
+            numberOfQuestions = 0
+            score = 0
+            
+        }
+        
         showScore = true
     }
     
